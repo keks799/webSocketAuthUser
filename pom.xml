@@ -38,13 +38,6 @@
 
 		<!--Jetty Websocket server side dependencies start here -->
 
-		<!--Jetty JSR-356 Websocket server side dependency -->
-		<dependency>
-			<groupId>org.eclipse.jetty.websocket</groupId>
-			<artifactId>javax-websocket-server-impl</artifactId>
-			<version>${jetty.version}</version>
-		</dependency>
-
 		<!--Jetty Websocket API server side dependency -->
 		<dependency>
 			<groupId>org.eclipse.jetty.websocket</groupId>
@@ -55,8 +48,6 @@
 		<!--Jetty Websocket server dependencies end here -->
 		
 		<!--Jetty Websocket client side dependencies start here -->
-
-		
 
 		<!--JSR-356 Websocket client side depencency  -->
 		<dependency>
@@ -72,6 +63,12 @@
 			<version>${jetty.version}</version>
 		</dependency>
 		<!--Jetty Websocket client side  dependencies end here -->
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
 
 	</dependencies>
 </project>
