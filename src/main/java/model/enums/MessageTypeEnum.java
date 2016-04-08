@@ -4,9 +4,9 @@ package model.enums;
  * Created by Business_Book on 03.04.2016.
  */
 public enum MessageTypeEnum {
-    LOGIN_CUSTOMER(0, "loginCustomer"),
-    CUSTOMER_API_TOKEN(1, "customerApiToken"),
-    CUSTOMER_ERROR(2, "customerError");
+    LOGIN_CUSTOMER(0, "LOGIN_CUSTOMER"),
+    CUSTOMER_API_TOKEN(1, "CUSTOMER_API_TOKEN"),
+    CUSTOMER_ERROR(2, "CUSTOMER_ERROR");
 
     private int code;
 

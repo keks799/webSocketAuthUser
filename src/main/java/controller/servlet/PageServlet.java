@@ -17,7 +17,7 @@ public class PageServlet extends HttpServlet {
         try {
             RequestDispatcher rd = request.getRequestDispatcher("/pages/mainPage.jsp");
             rd.include(request, response);
-            System.out.println(request.getRequestURL());
+//            System.out.println(request.getRequestURL());
         } catch (Exception e) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }

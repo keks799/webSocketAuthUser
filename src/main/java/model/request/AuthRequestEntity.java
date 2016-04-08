@@ -9,16 +9,16 @@ public class AuthRequestEntity {
 
     private static final Logger logger = Logger.getLogger(AuthRequestEntity.class);
 
-    private String email;
+    private String login;
 
     private String password;
 
-    public String getEmail() {
-        return email;
+    public String getLogin() {
+        return login;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {
