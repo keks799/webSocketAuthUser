@@ -17,9 +17,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
@@ -43,26 +40,9 @@ public class UserController {
 
     public User createNewUser(String message) throws Exception {
         User user = jsonToEntity(message, User.class);
-        user.setPassword(saltPassword(user.getPassword()));
         user.getTokens().add(createNewToken());
         user = userManager.save(user);
         return user;
-    }
-
-    private String saltPassword(String password){
-        StringBuilder sb = new StringBuilder();
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            md.reset();
-            md.update(password.getBytes(Charset.forName("UTF8")));
-            byte byteData[] = md.digest();
-            for (byte aByteData : byteData) {
-                sb.append(Integer.toString((aByteData & 0xff) + 0x100, 16).substring(1));
-            }
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return sb.toString();
     }
 
     public Message authUser(String msg) throws Exception {

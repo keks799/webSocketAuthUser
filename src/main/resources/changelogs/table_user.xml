@@ -25,4 +25,8 @@
         <sql>ALTER TABLE userauth.user ALTER COLUMN id TYPE bigint;</sql>
     </changeSet>
 
+    <changeSet id="3" author="KhudyakovI">
+        <sql>ALTER TABLE userauth.user ALTER COLUMN password TYPE varchar(255);</sql>
+    </changeSet>
+
 </databaseChangeLog>
