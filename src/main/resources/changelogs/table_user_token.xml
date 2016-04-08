@@ -17,5 +17,9 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="2" author="KhudyakovI">
+        <sql>ALTER TABLE userauth.user_token ALTER COLUMN user_id TYPE bigint;</sql>
+        <sql>ALTER TABLE userauth.user_token ALTER COLUMN token_id TYPE bigint;</sql>
+    </changeSet>
 
 </databaseChangeLog>

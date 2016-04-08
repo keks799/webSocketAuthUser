@@ -26,4 +26,12 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="3" author="KhudyakovI">
+        <sql>ALTER TABLE userauth.token ALTER COLUMN id TYPE bigint;</sql>
+    </changeSet>
+
+    <changeSet id="4" author="KhudyakovI">
+        <sql>ALTER TABLE userauth.token ALTER COLUMN expiration_date TYPE timestamp;</sql>
+    </changeSet>
+
 </databaseChangeLog>
