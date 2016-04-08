@@ -1,34 +1,35 @@
 package org.websocket.server;
 
 import controller.websocket.UserController;
-import model.message.Message;
+import model.entity.User;
 import org.apache.log4j.Logger;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.websocket.OnMessage;
 import javax.websocket.server.ServerEndpoint;
 
-@Stateless
-@ServerEndpoint("/auth")
-public class UserAuthWebSocket extends AbstractWebSocket {
+/**
+ * Created by Business_Book on 08.04.2016.
+ */
 
-    private static final Logger logger = Logger.getLogger(UserAuthWebSocket.class);
+@Stateless
+@ServerEndpoint("/create")
+public class CreateUserWebSocket extends AbstractWebSocket {
+
+    private static final Logger logger = Logger.getLogger(CreateUserWebSocket.class);
 
     @Inject
     UserController userController;
 
-    @OnMessage
+    @Override
     public String onText(String msg) {
-        logger.info("Message received:\n" + msg);
-        Message response;
+        User user = null;
         try {
-            response = userController.authUser(msg);
-            return userController.entityToJson(response);
+            user = userController.createNewUser(msg);
+            return userController.entityToJson(user);
         } catch (Exception e) {
             e.printStackTrace();
             return e.getLocalizedMessage();
         }
     }
-
 }

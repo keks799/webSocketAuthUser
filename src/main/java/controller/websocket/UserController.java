@@ -41,10 +41,9 @@ public class UserController {
     @Inject
     UserManager userManager;
 
-    public User createNewUser() throws Exception {
-        User user = new User();
-        user.setLogin("test");
-        user.setPassword(saltPassword("test"));
+    public User createNewUser(String message) throws Exception {
+        User user = jsonToEntity(message, User.class);
+        user.setPassword(saltPassword(user.getPassword()));
         user.getTokens().add(createNewToken());
         user = userManager.save(user);
         return user;
@@ -98,12 +97,11 @@ public class UserController {
     }
 
     private Message getMessage(String msg) {
-        ObjectMapper mapper = new ObjectMapper();
         Message message = new Message();
         message.setType(MessageTypeEnum.LOGIN_CUSTOMER);
         message.setSequenceId(randomUUID().toString());
         try {
-            AuthRequestEntity requestEntity = mapper.readValue(msg, AuthRequestEntity.class);
+            AuthRequestEntity requestEntity = jsonToEntity(msg, AuthRequestEntity.class);
             message.setData(requestEntity);
         } catch (Exception e) {
             message.setData(null);
@@ -157,5 +155,20 @@ public class UserController {
             }
         }
         return properties;
+    }
+
+    public String entityToJson(Object o) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(o);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return e.getLocalizedMessage();
+        }
+    }
+
+    public <T> T jsonToEntity(String json, Class<T> clazz) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(json, clazz);
     }
 }

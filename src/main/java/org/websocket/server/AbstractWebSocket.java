@@ -1,7 +1,6 @@
 package org.websocket.server;
 
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.ObjectMapper;
 
 import javax.websocket.*;
 import java.io.IOException;
@@ -25,15 +24,5 @@ public abstract class AbstractWebSocket {
     @OnClose
     public void onClose(CloseReason reason) {
         logger.info(reason.getCloseCode().getCode());
-    }
-
-    public String entityToJson(Object o) {
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            return mapper.writeValueAsString(o);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return e.getLocalizedMessage();
-        }
     }
 }
