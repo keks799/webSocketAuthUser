@@ -82,4 +82,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+*.log
+
 # Created by .ignore support plugin (hsz.mobi)
