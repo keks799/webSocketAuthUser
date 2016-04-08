@@ -51,6 +51,9 @@ public class UserController {
         User user = authentificationManager.getUserByLoginPassword(requestEntity.getLogin(), requestEntity.getPassword());
         if (user != null) {
             Token token = createNewToken();
+            for (Token t : user.getTokens()) {
+                t.setActive(false);
+            }
             user.getTokens().add(token);
             authentificationManager.update(user);
             message.setType(MessageTypeEnum.CUSTOMER_API_TOKEN);
