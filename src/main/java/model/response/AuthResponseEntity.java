@@ -1,8 +1,8 @@
 package model.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import model.interfaces.Data;
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.util.Date;
 

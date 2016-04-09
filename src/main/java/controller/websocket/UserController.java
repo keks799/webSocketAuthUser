@@ -56,10 +56,10 @@ public class UserController {
             }
             user.getTokens().add(token);
             authentificationManager.update(user);
-            message.setType(MessageTypeEnum.CUSTOMER_API_TOKEN);
+            message.setMessageType(MessageTypeEnum.CUSTOMER_API_TOKEN);
             message.setData(createResponseData(token));
         } else {
-            message.setType(MessageTypeEnum.CUSTOMER_ERROR);
+            message.setMessageType(MessageTypeEnum.CUSTOMER_ERROR);
             message.setData(createResponseError());
         }
         return message;

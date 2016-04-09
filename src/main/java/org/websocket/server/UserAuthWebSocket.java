@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.websocket.OnMessage;
+import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
 import static utils.JsonUtilities.entityToJson;
@@ -21,8 +22,8 @@ public class UserAuthWebSocket extends AbstractWebSocket {
     UserController userController;
 
     @OnMessage
-    public String onText(String msg) {
-        logger.info("Message received:\n" + msg);
+    public String onMessage(Session session, String msg) {
+        logger.info("in session: " + session.getId() + " got message\n" + msg);
         Message response;
         try {
             response = userController.authUser(msg);

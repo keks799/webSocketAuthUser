@@ -1,8 +1,8 @@
 package model.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import model.interfaces.Data;
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
  * Created by Business_Book on 03.04.2016.

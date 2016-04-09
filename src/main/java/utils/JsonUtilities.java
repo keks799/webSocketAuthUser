@@ -1,8 +1,8 @@
 package utils;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.annotate.JsonCreator;
-import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
 

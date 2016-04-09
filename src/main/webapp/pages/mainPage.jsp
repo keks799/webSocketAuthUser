@@ -33,7 +33,6 @@
 
 <script type="text/javascript">
     var webSocket;
-    var parcel = JSON.parse('{"type":"LOGIN_CUSTOMER","sequence_id":"","data":{"email":"","password":""}}');
 
 //  answers
 //  '{"type":"CUSTOMER_ERROR","sequence_id":"715c13b3-881a-9c97-b853-10be585a9747","data":{"error_description":"Customer not found","error_code":"customer.notFound"}}'
@@ -52,7 +51,7 @@
 
     function onMessage() {
         webSocket.onmessage = function (event) {
-            alert(event.data);
+            console.log("received message: " + event.data);
         };
     }
 
@@ -62,10 +61,12 @@
             $("input[name=sequence_id]").val(guid());
             webSocket = new WebSocket("ws://localhost:8080/auth");
             webSocket.onopen = function (event) {
+                var parcel = JSON.parse('{"type":"LOGIN_CUSTOMER","sequence_id":"","data":{"email":"","password":""}}');
                 parcel.sequence_id = guid();
                 parcel.data.email = $("#email").val();
                 parcel.data.password = $("#password").val();
                 webSocket.send(JSON.stringify(parcel));
+                console.log("message sent: " + JSON.stringify(parcel));
             };
 
             onMessage();
@@ -77,10 +78,11 @@
             e.preventDefault();
             webSocket = new WebSocket("ws://localhost:8080/create");
             webSocket.onopen = function (event) {
-                parcel.sequence_id = guid();
-                parcel.data.email = $("#signUpEmail").val();
-                parcel.data.password = $("#signUpPassword").val();
+                var parcel = JSON.parse('{"email":"","password":""}');
+                parcel.email = $("#signUpEmail").val();
+                parcel.password = $("#signUpPassword").val();
                 webSocket.send(JSON.stringify(parcel));
+                console.log("message sent: " + JSON.stringify(parcel));
             };
 
             onMessage();

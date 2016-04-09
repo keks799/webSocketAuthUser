@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
 import static utils.JsonUtilities.entityToJson;
@@ -24,8 +25,9 @@ public class CreateUserWebSocket extends AbstractWebSocket {
     UserController userController;
 
     @Override
-    public String onText(String msg) {
-        User user = null;
+    public String onMessage(Session session, String msg) {
+        logger.info("in session: " + session.getId() + " got message\n" + msg);
+        User user;
         try {
             user = userController.createNewUser(msg);
             return entityToJson(user);
