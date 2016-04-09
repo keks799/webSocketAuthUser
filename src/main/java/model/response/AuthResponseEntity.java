@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import model.interfaces.Data;
 import org.apache.log4j.Logger;
 
-import java.util.Date;
-
 /**
  * Created by Business_Book on 03.04.2016.
  */
@@ -17,7 +15,7 @@ public class AuthResponseEntity implements Data {
     private String apiToken;
 
     @JsonProperty("api_token_expiration_date")
-    private Date apiTokenExpirationDate;
+    private String apiTokenExpirationDate;
 
     public String getApiToken() {
         return apiToken;
@@ -27,11 +25,11 @@ public class AuthResponseEntity implements Data {
         this.apiToken = apiToken;
     }
 
-    public Date getApiTokenExpirationDate() {
+    public String getApiTokenExpirationDate() {
         return apiTokenExpirationDate;
     }
 
-    public void setApiTokenExpirationDate(Date apiTokenExpirationDate) {
+    public void setApiTokenExpirationDate(String apiTokenExpirationDate) {
         this.apiTokenExpirationDate = apiTokenExpirationDate;
     }
 }

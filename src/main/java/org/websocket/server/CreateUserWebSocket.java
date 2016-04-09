@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-import static utils.JsonUtilities.entityToJson;
+import static utils.JsonUtils.entityToJson;
 
 /**
  * Created by Business_Book on 08.04.2016.

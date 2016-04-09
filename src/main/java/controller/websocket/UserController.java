@@ -21,7 +21,8 @@ import java.util.Date;
 import java.util.Properties;
 
 import static java.util.UUID.randomUUID;
-import static utils.JsonUtilities.jsonToEntity;
+import static utils.DateUtils.convertToRFC3339;
+import static utils.JsonUtils.jsonToEntity;
 
 /**
  * Created by Business_Book on 08.04.2016.
@@ -75,7 +76,7 @@ public class UserController {
     private AuthResponseEntity createResponseData(Token token) {
         AuthResponseEntity responseEntity = new AuthResponseEntity();
         responseEntity.setApiToken(token.getToken_guid());
-        responseEntity.setApiTokenExpirationDate(token.getExpiration_date());
+        responseEntity.setApiTokenExpirationDate(convertToRFC3339(token.getExpiration_date()));
         return responseEntity;
     }
 

@@ -10,7 +10,7 @@ import javax.websocket.OnMessage;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-import static utils.JsonUtilities.entityToJson;
+import static utils.JsonUtils.entityToJson;
 
 @Stateless
 @ServerEndpoint("/auth")

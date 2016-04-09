@@ -9,9 +9,9 @@ import java.io.IOException;
 /**
  * Created by Business_Book on 09.04.2016.
  */
-public class JsonUtilities {
+public class JsonUtils {
 
-    private static final Logger logger = Logger.getLogger(JsonUtilities.class);
+    private static final Logger logger = Logger.getLogger(JsonUtils.class);
 
     @JsonCreator
     public static String entityToJson(Object o) {
