@@ -10,10 +10,6 @@ import model.response.AuthResponseEntity;
 import model.response.ErrorResponseEntity;
 import org.apache.log4j.Logger;
 
-/*import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.annotate.JsonSubTypes;
-import org.codehaus.jackson.annotate.JsonTypeInfo;*/
-
 /**
  * Created by Business_Book on 03.04.2016.
  */
