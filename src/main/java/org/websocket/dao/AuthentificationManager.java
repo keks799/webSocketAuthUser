@@ -20,9 +20,9 @@ public class AuthentificationManager extends AbstractManager implements Serializ
     public AuthentificationManager() {
     }
 
-    public User getUserByLoginPassword(String login, String password) {
-        Query query = manager.createQuery("select u from User u where u.login = :login and u.password = :password ");
-        query.setParameter("login", login);
+    public User getUserByEmailPassword(String email, String password) {
+        Query query = manager.createQuery("select u from User u where u.email = :login and u.password = :password ");
+        query.setParameter("login", email);
         query.setParameter("password", password);
         List result = query.getResultList();
         if(result != null && result.size() > 0) {

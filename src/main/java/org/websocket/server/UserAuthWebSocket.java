@@ -9,6 +9,8 @@ import javax.inject.Inject;
 import javax.websocket.OnMessage;
 import javax.websocket.server.ServerEndpoint;
 
+import static utils.JsonUtilities.entityToJson;
+
 @Stateless
 @ServerEndpoint("/auth")
 public class UserAuthWebSocket extends AbstractWebSocket {
@@ -24,7 +26,7 @@ public class UserAuthWebSocket extends AbstractWebSocket {
         Message response;
         try {
             response = userController.authUser(msg);
-            return userController.entityToJson(response);
+            return entityToJson(response);
         } catch (Exception e) {
             e.printStackTrace();
             return e.getLocalizedMessage();

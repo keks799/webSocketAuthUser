@@ -9,7 +9,6 @@ import model.response.AuthResponseEntity;
 import model.response.ErrorResponseEntity;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.websocket.dao.AuthentificationManager;
 import org.websocket.dao.UserManager;
 
@@ -22,6 +21,7 @@ import java.util.Date;
 import java.util.Properties;
 
 import static java.util.UUID.randomUUID;
+import static utils.JsonUtilities.jsonToEntity;
 
 /**
  * Created by Business_Book on 08.04.2016.
@@ -48,7 +48,7 @@ public class UserController {
     public Message authUser(String msg) throws Exception {
         Message message = getMessage(msg);
         AuthRequestEntity requestEntity = (AuthRequestEntity) message.getData();
-        User user = authentificationManager.getUserByLoginPassword(requestEntity.getLogin(), requestEntity.getPassword());
+        User user = authentificationManager.getUserByEmailPassword(requestEntity.getEmail(), requestEntity.getPassword());
         if (user != null) {
             Token token = createNewToken();
             for (Token t : user.getTokens()) {
@@ -81,11 +81,8 @@ public class UserController {
 
     private Message getMessage(String msg) {
         Message message = new Message();
-        message.setType(MessageTypeEnum.LOGIN_CUSTOMER);
-        message.setSequenceId(randomUUID().toString());
         try {
-            AuthRequestEntity requestEntity = jsonToEntity(msg, AuthRequestEntity.class);
-            message.setData(requestEntity);
+            message = jsonToEntity(msg, Message.class);
         } catch (Exception e) {
             message.setData(null);
         }
@@ -138,20 +135,5 @@ public class UserController {
             }
         }
         return properties;
-    }
-
-    public String entityToJson(Object o) {
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            return mapper.writeValueAsString(o);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return e.getLocalizedMessage();
-        }
-    }
-
-    public <T> T jsonToEntity(String json, Class<T> clazz) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(json, clazz);
     }
 }

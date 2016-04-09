@@ -1,16 +1,20 @@
 package model.response;
 
+import model.interfaces.Data;
 import org.apache.log4j.Logger;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
  * Created by Business_Book on 03.04.2016.
  */
-public class ErrorResponseEntity {
+public class ErrorResponseEntity implements Data {
 
     private static final Logger logger = Logger.getLogger(ErrorResponseEntity.class);
 
+    @JsonProperty("error_description")
     private String errorDescription;
 
+    @JsonProperty("error_code")
     private String errorCode;
 
     public String getErrorDescription() {

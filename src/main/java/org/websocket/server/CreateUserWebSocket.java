@@ -8,6 +8,8 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.websocket.server.ServerEndpoint;
 
+import static utils.JsonUtilities.entityToJson;
+
 /**
  * Created by Business_Book on 08.04.2016.
  */
@@ -26,7 +28,7 @@ public class CreateUserWebSocket extends AbstractWebSocket {
         User user = null;
         try {
             user = userController.createNewUser(msg);
-            return userController.entityToJson(user);
+            return entityToJson(user);
         } catch (Exception e) {
             e.printStackTrace();
             return e.getLocalizedMessage();
