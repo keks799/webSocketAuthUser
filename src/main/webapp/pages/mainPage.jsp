@@ -9,7 +9,6 @@
 <html>
 <head>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.2.min.js" integrity="sha256-lZFHibXzMHo3GGeehn1hudTAP3Sc0uKXBXAzHX1sjtk=" crossorigin="anonymous"></script>
-    <%--<script type="text/javascript" src="/js/serializejson.js"></script>--%>
 </head>
 <body>
 <div>
@@ -22,22 +21,25 @@
     </form>
 </div>
 
-<div>
+<%--<div>
     <form id="signUpForm" name="signUpForm">
         <input type="text" id="signUpEmail" name="email"/>
         <input type="password" id="signUpPassword" name="password"/>
         <input type="submit" id="signUp" value="signUp"/>
     </form>
+</div>--%>
+
+<div style="margin-bottom: 20px;">
+    <span id="request" style="color: coral;"></span>
+</div>
+
+<div>
+    <span id="response" style="color: cadetblue"></span>
 </div>
 </body>
 
 <script type="text/javascript">
     var webSocket;
-
-//  answers
-//  '{"type":"CUSTOMER_ERROR","sequence_id":"715c13b3-881a-9c97-b853-10be585a9747","data":{"error_description":"Customer not found","error_code":"customer.notFound"}}'
-
-//  '{"type":"CUSTOMER_API_TOKEN","sequence_id":"cbf187c9-8679-0359-eb3d-c3211ee51a15","data":{"api_token":"afdd312c-3d2a-45ee-aa61-468aba3397f3","api_token_expiration_date":"2015-07-15T11:14:30Z"}}'
 
     function guid() {
         function s4() {
@@ -51,7 +53,9 @@
 
     function onMessage() {
         webSocket.onmessage = function (event) {
-            console.log("received message: " + event.data);
+            var message = event.data;
+            console.log("received message: " + message);
+            $("#response").text(message);
         };
     }
 
@@ -66,7 +70,9 @@
                 parcel.data.email = $("#email").val();
                 parcel.data.password = $("#password").val();
                 webSocket.send(JSON.stringify(parcel));
-                console.log("message sent: " + JSON.stringify(parcel));
+                var message = JSON.stringify(parcel, null, 4);
+                console.log("message sent: " + message);
+                $("#request").text(message);
             };
 
             onMessage();
