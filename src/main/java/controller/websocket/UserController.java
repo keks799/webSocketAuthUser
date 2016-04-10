@@ -16,9 +16,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Properties;
+import java.util.*;
 
 import static java.util.UUID.randomUUID;
 import static utils.DateUtils.convertToRFC3339;
@@ -107,6 +105,7 @@ public class UserController {
         } else {
             throw new Exception("Wrong days number");
         }
+        token.setCreationDate(new Date());
         return token;
     }
 
@@ -136,5 +135,18 @@ public class UserController {
             }
         }
         return properties;
+    }
+
+    public List<User> getUsers(String userIdentifier) {
+        List<User> users = new ArrayList<User>();
+        userIdentifier = userIdentifier.trim();
+        if(StringUtils.isNotBlank(userIdentifier)) {
+            if(StringUtils.isNumeric(userIdentifier)) {
+                users.add(userManager.getUserById(new Long(userIdentifier)));
+            } else {
+                users.addAll(userManager.getUsersByEmail(userIdentifier));
+            }
+        }
+        return users;
     }
 }
