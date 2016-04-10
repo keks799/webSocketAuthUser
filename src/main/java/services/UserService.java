@@ -1,4 +1,4 @@
-package controller.websocket;
+package services;
 
 import model.entity.Token;
 import model.entity.User;
@@ -27,9 +27,9 @@ import static utils.JsonUtils.jsonToEntity;
  */
 
 @Stateless
-public class UserController {
+public class UserService {
 
-    private static final Logger logger = Logger.getLogger(UserController.class);
+    private static final Logger logger = Logger.getLogger(UserService.class);
 
     @Inject
     AuthentificationManager authentificationManager;
@@ -44,13 +44,12 @@ public class UserController {
         return user;
     }
 
-    public Message authUser(String msg) throws Exception {
-        Message message = getMessage(msg);
+    public Message authUser(Message message) throws Exception {
         AuthRequestEntity requestEntity = (AuthRequestEntity) message.getData();
         User user = authentificationManager.getUserByEmailPassword(requestEntity.getEmail(), requestEntity.getPassword());
         if (user != null) {
             Token token = createNewToken();
-            ((TreeSet) user.getTokens()).first();
+            ((SortedSet) user.getTokens()).first();
             user.getTokens().add(token);
             authentificationManager.update(user);
             message.setMessageType(MessageTypeEnum.CUSTOMER_API_TOKEN);
@@ -74,16 +73,6 @@ public class UserController {
         responseEntity.setApiToken(token.getToken_guid());
         responseEntity.setApiTokenExpirationDate(convertToRFC3339(token.getExpiration_date()));
         return responseEntity;
-    }
-
-    private Message getMessage(String msg) {
-        Message message = new Message();
-        try {
-            message = jsonToEntity(msg, Message.class);
-        } catch (Exception e) {
-            message.setData(null);
-        }
-        return message;
     }
 
     private Token createNewToken() throws Exception {

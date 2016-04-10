@@ -60,20 +60,18 @@
     }
 
     $(document).ready(function () {
+        webSocket = new WebSocket("ws://localhost:8080/websocket");
         $("#loginForm").submit(function (e) {
             e.preventDefault();
             $("input[name=sequence_id]").val(guid());
-            webSocket = new WebSocket("ws://localhost:8080/auth");
-            webSocket.onopen = function (event) {
-                var parcel = JSON.parse('{"type":"LOGIN_CUSTOMER","sequence_id":"","data":{"email":"","password":""}}');
-                parcel.sequence_id = guid();
-                parcel.data.email = $("#email").val();
-                parcel.data.password = $("#password").val();
-                webSocket.send(JSON.stringify(parcel));
-                var message = JSON.stringify(parcel, null, 4);
-                console.log("message sent: " + message);
-                $("#request").text(message);
-            };
+            var parcel = JSON.parse('{"type":"LOGIN_CUSTOMER","sequence_id":"","data":{"email":"","password":""}}');
+            parcel.sequence_id = guid();
+            parcel.data.email = $("#email").val();
+            parcel.data.password = $("#password").val();
+            webSocket.send(JSON.stringify(parcel));
+            var message = JSON.stringify(parcel, null, 4);
+            console.log("message sent: " + message);
+            $("#request").text(message);
 
             onMessage();
 
@@ -82,14 +80,11 @@
 
         $("#signUpForm").submit(function (e) {
             e.preventDefault();
-            webSocket = new WebSocket("ws://localhost:8080/create");
-            webSocket.onopen = function (event) {
-                var parcel = JSON.parse('{"email":"","password":""}');
-                parcel.email = $("#signUpEmail").val();
-                parcel.password = $("#signUpPassword").val();
-                webSocket.send(JSON.stringify(parcel));
-                console.log("message sent: " + JSON.stringify(parcel));
-            };
+            var parcel = JSON.parse('{"type":"SIGNUP_CUSTOMER","email":"","password":""}');
+            parcel.email = $("#signUpEmail").val();
+            parcel.password = $("#signUpPassword").val();
+            webSocket.send(JSON.stringify(parcel));
+            console.log("message sent: " + JSON.stringify(parcel));
 
             onMessage();
 

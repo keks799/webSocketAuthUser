@@ -11,7 +11,7 @@
     
     <servlet>
         <servlet-name>PageServlet</servlet-name>
-        <servlet-class>controller.servlet.PageServlet</servlet-class>
+        <servlet-class>controllers.servlet.PageServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
