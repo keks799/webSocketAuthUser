@@ -1,29 +1,15 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Серверное приложение, осуществляющее операцию аутентификации пользователя.
 
-### What is this repository for? ###
+### Технологии: ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* WildFly 8.2.1
+* EJB
+* Postgres
+* Liquibase
 
-### How do I get set up? ###
+Чтобы запустить проект нужно выполнить mvn package war:war
+war-файл сохраняется в директорию deployments.
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+Для проверки приложения создана веб форма, доступна из корня. Отправленное и принятое сообщения отображаются на самой форме и пишутся в console.log.
