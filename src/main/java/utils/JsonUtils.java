@@ -17,7 +17,7 @@ public class JsonUtils {
     public static String entityToJson(Object o) {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            return mapper.writeValueAsString(o);
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(o);
         } catch (IOException e) {
             e.printStackTrace();
             return e.getLocalizedMessage();

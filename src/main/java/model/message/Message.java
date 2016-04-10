@@ -2,6 +2,7 @@ package model.message;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeId;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import model.enums.MessageTypeEnum;
 import model.interfaces.Data;
@@ -18,6 +19,7 @@ public class Message {
     private static final Logger logger = Logger.getLogger(Message.class);
 
     @JsonProperty("type")
+    @JsonTypeId
     private MessageTypeEnum messageType;
 
     @JsonProperty("sequence_id")
