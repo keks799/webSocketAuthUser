@@ -1,11 +1,12 @@
 package model.entity;
 
+import model.Comparator.TokenComparator;
 import org.apache.log4j.Logger;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.SortComparator;
 
 import javax.persistence.*;
-import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -40,7 +41,8 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "token_id")
     )
     @Cascade(CascadeType.ALL)
-    private Set<Token> tokens;
+    @SortComparator(TokenComparator.class)
+    private Set<Token> tokens = new TreeSet<Token>(new TokenComparator());
 
     public Long getId() {
         return id;
@@ -67,9 +69,6 @@ public class User {
     }
 
     public Set<Token> getTokens() {
-        if(tokens == null) {
-            tokens = new LinkedHashSet<Token>();
-        }
         return tokens;
     }
 
