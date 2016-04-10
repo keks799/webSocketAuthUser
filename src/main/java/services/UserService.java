@@ -8,6 +8,7 @@ import model.request.AuthRequest;
 import model.response.AuthResponse;
 import model.response.ErrorResponse;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.log4j.Logger;
 import org.websocket.dao.AuthentificationManager;
 import org.websocket.dao.UserManager;
@@ -45,18 +46,25 @@ public class UserService {
     }
 
     public Message authUser(Message message) throws Exception {
-        AuthRequest requestEntity = (AuthRequest) message.getData();
-        User user = authentificationManager.getUserByEmailPassword(requestEntity.getEmail(), requestEntity.getPassword());
-        if (user != null) {
-            Token token = createNewToken();
-            ((SortedSet) user.getTokens()).first();
-            user.getTokens().add(token);
-            authentificationManager.update(user);
-            message.setMessageType(MessageTypeEnum.CUSTOMER_API_TOKEN);
-            message.setData(createResponseData(token));
+        AuthRequest request = (AuthRequest) message.getData();
+
+        String email = request.getEmail().trim();
+        String password = request.getPassword().trim();
+        if(EmailValidator.getInstance().isValid(email) && email.length() > 0 && password.length() > 0 && email.length() < 255 && password.length() <= 255) {
+            User user = authentificationManager.getUserByEmailPassword(email, password);
+            if (user != null) {
+                Token token = createNewToken();
+                ((Token)((SortedSet) user.getTokens()).first()).setActive(false);
+                user.getTokens().add(token);
+                authentificationManager.update(user);
+                message.setMessageType(MessageTypeEnum.CUSTOMER_API_TOKEN);
+                message.setData(createResponseData(token));
+            } else {
+                message.setMessageType(MessageTypeEnum.CUSTOMER_ERROR);
+                message.setData(createResponseError());
+            }
         } else {
-            message.setMessageType(MessageTypeEnum.CUSTOMER_ERROR);
-            message.setData(createResponseError());
+            throw new Exception("Wrong email");
         }
         return message;
     }

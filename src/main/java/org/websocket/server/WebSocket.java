@@ -39,13 +39,15 @@ public class WebSocket {
     @OnMessage
     public String onMessage(Session session, String msg) {
         logger.info("in session: " + session.getId() + " got message\n" + msg);
-        Message message = getMessage(msg);
+        Message message;
+        try {
+            message = getMessage(msg);
+        } catch (Exception e) {
+            return e.getLocalizedMessage() + " " + msg;
+        }
         switch (message.getMessageType()) {
             case LOGIN_CUSTOMER : {
                 return userController.authUser(session, message);
-            }
-            case SIGNUP_CUSTOMER : {
-                return userController.createNewUser(session, msg);
             }
             default: {
                 return "Unknown message type";

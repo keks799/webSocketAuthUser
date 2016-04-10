@@ -6,6 +6,5 @@ package model.enums;
 public enum MessageTypeEnum {
     LOGIN_CUSTOMER,
     CUSTOMER_API_TOKEN,
-    CUSTOMER_ERROR,
-    SIGNUP_CUSTOMER
+    CUSTOMER_ERROR
 }

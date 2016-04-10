@@ -21,14 +21,6 @@
     </form>
 </div>
 
-<%--<div>
-    <form id="signUpForm" name="signUpForm">
-        <input type="text" id="signUpEmail" name="email"/>
-        <input type="password" id="signUpPassword" name="password"/>
-        <input type="submit" id="signUp" value="signUp"/>
-    </form>
-</div>--%>
-
 <div style="margin-bottom: 20px;">
     <span id="request" style="color: coral;"></span>
 </div>
@@ -40,6 +32,11 @@
 
 <script type="text/javascript">
     var webSocket;
+
+    function validateEmail(email) {
+        var re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        return re.test(email);
+    }
 
     function guid() {
         function s4() {
@@ -63,31 +60,23 @@
         webSocket = new WebSocket("ws://localhost:8080/websocket");
         $("#loginForm").submit(function (e) {
             e.preventDefault();
-            $("input[name=sequence_id]").val(guid());
-            var parcel = JSON.parse('{"type":"LOGIN_CUSTOMER","sequence_id":"","data":{"email":"","password":""}}');
-            parcel.sequence_id = guid();
-            parcel.data.email = $("#email").val();
-            parcel.data.password = $("#password").val();
-            webSocket.send(JSON.stringify(parcel));
-            var message = JSON.stringify(parcel, null, 4);
-            console.log("message sent: " + message);
-            $("#request").text(message);
+            var email = $("#email").val().trim();
+            var password = $("#password").val().trim();
+            if(validateEmail(email) && email.size() > 0 && password.size() > 0 && email.size() < 255 && password.size() <= 255) {
+                $("input[name=sequence_id]").val(guid());
+                var parcel = JSON.parse('{"type":"LOGIN_CUSTOMER","sequence_id":"","data":{"email":"","password":""}}');
+                parcel.sequence_id = guid();
+                parcel.data.email = email;
+                parcel.data.password = password;
+                webSocket.send(JSON.stringify(parcel));
+                var message = JSON.stringify(parcel, null, 4);
+                console.log("message sent: " + message);
+                $("#request").text(message);
 
-            onMessage();
-
-            return false;
-        });
-
-        $("#signUpForm").submit(function (e) {
-            e.preventDefault();
-            var parcel = JSON.parse('{"type":"SIGNUP_CUSTOMER","email":"","password":""}');
-            parcel.email = $("#signUpEmail").val();
-            parcel.password = $("#signUpPassword").val();
-            webSocket.send(JSON.stringify(parcel));
-            console.log("message sent: " + JSON.stringify(parcel));
-
-            onMessage();
-
+                onMessage();
+            } else {
+                $("#response").text("Incorrect email or password");
+            }
             return false;
         });
     });

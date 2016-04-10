@@ -32,7 +32,7 @@ public class Message {
         return data;
     }
 
-    @JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property="type") // todo!!! important!!!
+    @JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property="type")
     @JsonSubTypes(value = {
             @JsonSubTypes.Type(value=AuthRequest.class, name="LOGIN_CUSTOMER"),
 

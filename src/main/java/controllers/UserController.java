@@ -35,11 +35,11 @@ public class UserController {
         }
     }
 
-    public String authUser(Session session, Message msg) {
-        logger.info("in session: " + session.getId() + " got message\n" + msg);
+    public String authUser(Session session, Message message) {
+        logger.info("in session: " + session.getId() + " got message\n" + message);
         Message response;
         try {
-            response = userService.authUser(msg);
+            response = userService.authUser(message);
             return entityToJson(response);
         } catch (Exception e) {
             e.printStackTrace();

@@ -12,12 +12,12 @@ public class MessageUtils {
 
     private static final Logger logger = Logger.getLogger(MessageUtils.class);
 
-    public static Message getMessage(String msg) {
-        Message message = new Message();
+    public static Message getMessage(String msg) throws Exception {
+        Message message;
         try {
             message = jsonToEntity(msg, Message.class);
         } catch (Exception e) {
-            message.setData(null);
+            throw new Exception("Wrong message error.");
         }
         return message;
     }
