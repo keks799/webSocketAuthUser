@@ -50,9 +50,7 @@ public class UserController {
         User user = authentificationManager.getUserByEmailPassword(requestEntity.getEmail(), requestEntity.getPassword());
         if (user != null) {
             Token token = createNewToken();
-            for (Token t : user.getTokens()) {
-                t.setActive(false);
-            }
+            ((TreeSet) user.getTokens()).first();
             user.getTokens().add(token);
             authentificationManager.update(user);
             message.setMessageType(MessageTypeEnum.CUSTOMER_API_TOKEN);
