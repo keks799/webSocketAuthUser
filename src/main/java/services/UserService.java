@@ -51,7 +51,7 @@ public class UserService {
         AuthRequest request = (AuthRequest) message.getData();
 
         String email = request.getEmail().trim().toLowerCase();
-        String password = request.getPassword().trim().toLowerCase();
+        String password = request.getPassword().trim();
 
         if(EmailValidator.getInstance().isValid(email) && email.length() > 0 && password.length() > 0 && email.length() < 255 && password.length() <= 255) {
             User user = authentificationManager.getUserByEmailPassword(email, password);

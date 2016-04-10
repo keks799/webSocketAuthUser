@@ -11,6 +11,11 @@ public class AuthRequest implements Data {
 
     private static final Logger logger = Logger.getLogger(AuthRequest.class);
 
+    public AuthRequest(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     @JsonProperty("email")
     private String email;
 

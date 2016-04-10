@@ -11,12 +11,29 @@ import model.response.AuthResponse;
 import model.response.ErrorResponse;
 import org.apache.log4j.Logger;
 
+import java.util.UUID;
+
 /**
  * Created by Business_Book on 03.04.2016.
  */
 public class Message {
 
     private static final Logger logger = Logger.getLogger(Message.class);
+
+    public Message() {
+    }
+
+    public Message(MessageTypeEnum messageType, String sequenceid, Data data) {
+        this.messageType = messageType;
+        this.sequenceid = sequenceid;
+        this.data = data;
+    }
+
+    public Message(MessageTypeEnum messageType, Data data) {
+        this.messageType = messageType;
+        this.sequenceid = UUID.randomUUID().toString();
+        this.data = data;
+    }
 
     @JsonProperty("type")
     @JsonTypeId
