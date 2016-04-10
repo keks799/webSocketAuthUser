@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import model.enums.MessageTypeEnum;
 import model.interfaces.Data;
-import model.request.AuthRequestEntity;
-import model.response.AuthResponseEntity;
-import model.response.ErrorResponseEntity;
+import model.request.AuthRequest;
+import model.response.AuthResponse;
+import model.response.ErrorResponse;
 import org.apache.log4j.Logger;
 
 /**
@@ -32,11 +32,11 @@ public class Message {
 
     @JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property="type") // todo!!! important!!!
     @JsonSubTypes(value = {
-            @JsonSubTypes.Type(value=AuthRequestEntity.class, name="LOGIN_CUSTOMER"),
+            @JsonSubTypes.Type(value=AuthRequest.class, name="LOGIN_CUSTOMER"),
 
-            @JsonSubTypes.Type(value=AuthResponseEntity.class, name="CUSTOMER_API_TOKEN"),
+            @JsonSubTypes.Type(value=AuthResponse.class, name="CUSTOMER_API_TOKEN"),
 
-            @JsonSubTypes.Type(value=ErrorResponseEntity.class, name="CUSTOMER_ERROR")
+            @JsonSubTypes.Type(value=ErrorResponse.class, name="CUSTOMER_ERROR")
     })
     public void setData(Data data) {
         this.data = data;

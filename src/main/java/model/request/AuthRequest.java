@@ -7,9 +7,9 @@ import org.apache.log4j.Logger;
 /**
  * Created by Business_Book on 03.04.2016.
  */
-public class AuthRequestEntity implements Data {
+public class AuthRequest implements Data {
 
-    private static final Logger logger = Logger.getLogger(AuthRequestEntity.class);
+    private static final Logger logger = Logger.getLogger(AuthRequest.class);
 
     @JsonProperty("email")
     private String email;

@@ -7,9 +7,9 @@ import org.apache.log4j.Logger;
 /**
  * Created by Business_Book on 03.04.2016.
  */
-public class ErrorResponseEntity implements Data {
+public class ErrorResponse implements Data {
 
-    private static final Logger logger = Logger.getLogger(ErrorResponseEntity.class);
+    private static final Logger logger = Logger.getLogger(ErrorResponse.class);
 
     @JsonProperty("error_description")
     private String errorDescription;

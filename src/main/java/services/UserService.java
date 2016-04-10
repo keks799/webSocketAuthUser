@@ -4,9 +4,9 @@ import model.entity.Token;
 import model.entity.User;
 import model.enums.MessageTypeEnum;
 import model.message.Message;
-import model.request.AuthRequestEntity;
-import model.response.AuthResponseEntity;
-import model.response.ErrorResponseEntity;
+import model.request.AuthRequest;
+import model.response.AuthResponse;
+import model.response.ErrorResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.websocket.dao.AuthentificationManager;
@@ -45,7 +45,7 @@ public class UserService {
     }
 
     public Message authUser(Message message) throws Exception {
-        AuthRequestEntity requestEntity = (AuthRequestEntity) message.getData();
+        AuthRequest requestEntity = (AuthRequest) message.getData();
         User user = authentificationManager.getUserByEmailPassword(requestEntity.getEmail(), requestEntity.getPassword());
         if (user != null) {
             Token token = createNewToken();
@@ -61,15 +61,15 @@ public class UserService {
         return message;
     }
 
-    private ErrorResponseEntity createResponseError() {
-        ErrorResponseEntity responseEntity = new ErrorResponseEntity();
+    private ErrorResponse createResponseError() {
+        ErrorResponse responseEntity = new ErrorResponse();
         responseEntity.setErrorDescription("Customer not found");
         responseEntity.setErrorCode("customer.notFound");
         return responseEntity;
     }
 
-    private AuthResponseEntity createResponseData(Token token) {
-        AuthResponseEntity responseEntity = new AuthResponseEntity();
+    private AuthResponse createResponseData(Token token) {
+        AuthResponse responseEntity = new AuthResponse();
         responseEntity.setApiToken(token.getToken_guid());
         responseEntity.setApiTokenExpirationDate(convertToRFC3339(token.getExpiration_date()));
         return responseEntity;

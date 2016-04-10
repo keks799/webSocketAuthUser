@@ -7,9 +7,9 @@ import org.apache.log4j.Logger;
 /**
  * Created by Business_Book on 03.04.2016.
  */
-public class AuthResponseEntity implements Data {
+public class AuthResponse implements Data {
 
-    private static final Logger logger = Logger.getLogger(AuthResponseEntity.class);
+    private static final Logger logger = Logger.getLogger(AuthResponse.class);
 
     @JsonProperty("apt_token")
     private String apiToken;
