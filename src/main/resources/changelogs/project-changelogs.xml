@@ -8,4 +8,5 @@
     <include file="src/main/resources/changelogs/table_token.xml" />
     <include file="src/main/resources/changelogs/table_user.xml" />
     <include file="src/main/resources/changelogs/table_user_token.xml" />
+    <include file="src/main/resources/changelogs/table_token_audit.xml" />
 </databaseChangeLog>

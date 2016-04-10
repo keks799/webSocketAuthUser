@@ -22,4 +22,12 @@
         <sql>ALTER TABLE userauth.user_token ALTER COLUMN token_id TYPE bigint;</sql>
     </changeSet>
 
+    <changeSet id="3" author="KhudyakovI">
+        <sql>ALTER TABLE userauth.user_token rename to token_audit;</sql>
+        <addColumn tableName="token_audit" schemaName="userauth">
+            <column name="date" type="timestamp"/>
+        </addColumn>
+    </changeSet>
+
+
 </databaseChangeLog>

@@ -35,7 +35,7 @@ public class User {
 
     @OneToMany
     @JoinTable(
-            name = "user_token",
+            name = "token_audit",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "token_id")
     )

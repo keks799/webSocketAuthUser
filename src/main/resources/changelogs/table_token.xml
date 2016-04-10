@@ -34,4 +34,10 @@
         <sql>ALTER TABLE userauth.token ALTER COLUMN expiration_date TYPE timestamp;</sql>
     </changeSet>
 
+    <changeSet id="5" author="KhudyakovI">
+        <addColumn tableName="token" schemaName="userauth">
+            <column name="creationdate" type="timestamp" />
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

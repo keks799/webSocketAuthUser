@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.Query;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by Business_Book on 04.04.2016.
@@ -24,10 +23,6 @@ public class AuthentificationManager extends AbstractManager implements Serializ
         Query query = manager.createQuery("select u from User u where u.email = :login and u.password = :password ");
         query.setParameter("login", email);
         query.setParameter("password", password);
-        List result = query.getResultList();
-        if(result != null && result.size() > 0) {
-            return (User) query.getResultList().get(0);
-        }
-        return null;
+        return getSafeSingleResult(query);
     }
 }

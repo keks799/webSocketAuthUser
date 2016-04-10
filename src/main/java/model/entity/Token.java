@@ -34,6 +34,9 @@ public class Token implements Serializable {
     @Column(name = "active")
     private boolean active;
 
+    @Column(name = "creationdate")
+    private Date creationDate;
+
     public Long getId() {
         return id;
     }
@@ -64,5 +67,13 @@ public class Token implements Serializable {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 }
