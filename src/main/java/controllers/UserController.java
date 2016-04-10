@@ -9,7 +9,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.websocket.Session;
 
-import static utils.JsonUtils.entityToJson;
+import static utils.JsonUtils.objectToJson;
 
 /**
  * Created by Business_Book on 10.04.2016.
@@ -24,11 +24,11 @@ public class UserController {
     UserService userService;
 
     public String createNewUser(Session session, String msg) {
-        logger.info("in session: " + session.getId() + " got message\n" + msg);
+        logger.info("create new user in session: " + session.getId());
         User user;
         try {
             user = userService.createNewUser(msg);
-            return entityToJson(user);
+            return objectToJson(user);
         } catch (Exception e) {
             e.printStackTrace();
             return e.getLocalizedMessage();
@@ -36,11 +36,11 @@ public class UserController {
     }
 
     public String authUser(Session session, Message message) {
-        logger.info("in session: " + session.getId() + " got message\n" + message);
+        logger.info("trying to authenticate user in session: " + session.getId());
         Message response;
         try {
             response = userService.authUser(message);
-            return entityToJson(response);
+            return objectToJson(response);
         } catch (Exception e) {
             e.printStackTrace();
             return e.getLocalizedMessage();

@@ -10,6 +10,7 @@ import model.response.ErrorResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.log4j.Logger;
+import org.hibernate.Hibernate;
 import org.websocket.dao.AuthentificationManager;
 import org.websocket.dao.UserManager;
 
@@ -21,7 +22,7 @@ import java.util.*;
 
 import static java.util.UUID.randomUUID;
 import static utils.DateUtils.convertToRFC3339;
-import static utils.JsonUtils.jsonToEntity;
+import static utils.JsonUtils.jsonToObject;
 
 /**
  * Created by Business_Book on 08.04.2016.
@@ -39,7 +40,8 @@ public class UserService {
     UserManager userManager;
 
     public User createNewUser(String message) throws Exception {
-        User user = jsonToEntity(message, User.class);
+        User user = jsonToObject(message, User.class);
+        Hibernate.initialize(user.getTokens());
         user.getTokens().add(createNewToken());
         user = userManager.save(user);
         return user;
@@ -48,14 +50,21 @@ public class UserService {
     public Message authUser(Message message) throws Exception {
         AuthRequest request = (AuthRequest) message.getData();
 
-        String email = request.getEmail().trim();
-        String password = request.getPassword().trim();
+        String email = request.getEmail().trim().toLowerCase();
+        String password = request.getPassword().trim().toLowerCase();
+
         if(EmailValidator.getInstance().isValid(email) && email.length() > 0 && password.length() > 0 && email.length() < 255 && password.length() <= 255) {
             User user = authentificationManager.getUserByEmailPassword(email, password);
             if (user != null) {
                 Token token = createNewToken();
-                ((Token)((SortedSet) user.getTokens()).first()).setActive(false);
-                user.getTokens().add(token);
+                try {
+                    Hibernate.initialize(user.getTokens());
+                    ((Token) ((SortedSet) user.getTokens()).first()).setActive(false);
+                } catch (Exception e) {
+                    logger.error("User has no tokens");
+                } finally {
+                    user.getTokens().add(token);
+                }
                 authentificationManager.update(user);
                 message.setMessageType(MessageTypeEnum.CUSTOMER_API_TOKEN);
                 message.setData(createResponseData(token));

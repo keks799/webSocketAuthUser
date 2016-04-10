@@ -3,7 +3,7 @@ package utils;
 import model.message.Message;
 import org.apache.log4j.Logger;
 
-import static utils.JsonUtils.jsonToEntity;
+import static utils.JsonUtils.jsonToObject;
 
 /**
  * Created by Business_Book on 10.04.2016.
@@ -15,7 +15,7 @@ public class MessageUtils {
     public static Message getMessage(String msg) throws Exception {
         Message message;
         try {
-            message = jsonToEntity(msg, Message.class);
+            message = jsonToObject(msg, Message.class);
         } catch (Exception e) {
             throw new Exception("Wrong message error.");
         }

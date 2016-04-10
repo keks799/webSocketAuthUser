@@ -39,7 +39,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "token_audit",
             joinColumns = @JoinColumn(name = "user_id"),

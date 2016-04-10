@@ -58,6 +58,6 @@ public class WebSocket {
     @OnClose
     public void onClose(CloseReason reason, Session session) {
         sessions.remove(session);
-        logger.info("closed session " + reason.getCloseCode().getCode());
+        logger.info("closed session " + session.getId() + " with reason " + reason.getCloseCode().getCode());
     }
 }

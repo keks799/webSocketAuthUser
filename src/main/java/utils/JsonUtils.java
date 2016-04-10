@@ -14,7 +14,7 @@ public class JsonUtils {
     private static final Logger logger = Logger.getLogger(JsonUtils.class);
 
     @JsonCreator
-    public static String entityToJson(Object o) {
+    public static String objectToJson(Object o) {
         ObjectMapper mapper = new ObjectMapper();
         try {
             return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(o);
@@ -25,7 +25,7 @@ public class JsonUtils {
     }
 
     @JsonCreator
-    public static <T> T jsonToEntity(String json, Class<T> clazz) throws IOException {
+    public static <T> T jsonToObject(String json, Class<T> clazz) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(json, clazz);
     }

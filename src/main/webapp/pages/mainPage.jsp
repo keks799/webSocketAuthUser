@@ -62,7 +62,7 @@
             e.preventDefault();
             var email = $("#email").val().trim();
             var password = $("#password").val().trim();
-            if(validateEmail(email) && email.size() > 0 && password.size() > 0 && email.size() < 255 && password.size() <= 255) {
+            if(validateEmail(email) && email.length > 0 && password.length > 0 && email.length < 255 && password.length <= 255) {
                 $("input[name=sequence_id]").val(guid());
                 var parcel = JSON.parse('{"type":"LOGIN_CUSTOMER","sequence_id":"","data":{"email":"","password":""}}');
                 parcel.sequence_id = guid();
